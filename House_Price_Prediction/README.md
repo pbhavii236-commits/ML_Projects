@@ -76,7 +76,10 @@ Ensemble models like Gradient Boosting provide the most accurate predictions for
 - Deploy using Streamlit  
 
 ---
+## 📊 Output
 
+See full analysis with visualizations in the notebook:
+👉 House_Price_Prediction.ipynb
 ## ▶️ How to Run
 
 ```bash
