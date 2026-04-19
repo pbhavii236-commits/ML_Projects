@@ -13,7 +13,7 @@ Customer churn is one of the biggest challenges for telecom companies. This proj
 ## 📁 Dataset
 
 - **Name:** Telco Customer Churn
-- **Source:** [california_housing.csv]
+- **Source:** [Telco-Customer-Churn.csv]
 - **Records:** 7,043 customers
 - **Features:** 21 columns including tenure, contract type, monthly charges, internet service, etc.
 - **Target:** `Churn` (Yes / No)
