@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ML Portfolio | Data Science Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #22223a;
+    --accent1: #7c3aed;
+    --accent2: #06b6d4;
+    --accent3: #f59e0b;
+    --success: #10b981;
+    --text: #e8e8f0;
+    --muted: #6b7280;
+    --glow1: rgba(124,58,237,0.15);
+    --glow2: rgba(6,182,212,0.12);
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 4rem 2rem;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    left: -20%;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%);
+    animation: drift 12s ease-in-out infinite alternate;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -15%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(6,182,212,0.14) 0%, transparent 70%);
+    animation: drift 15s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,-30px) scale(1.08); } }
+
+  .hero-inner {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+  }
+  .badge {
+    display: inline-block;
+    border: 1px solid var(--accent1);
+    color: var(--accent1);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    padding: 0.35rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    background: rgba(124,58,237,0.08);
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.7s 0.1s ease both;
+  }
+  .hero h1 span { color: var(--accent2); }
+  .hero p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 540px;
+    margin: 0 auto 2.5rem;
+    animation: fadeUp 0.7s 0.2s ease both;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+  .stat-label { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
+
+  /* ─── Section ─── */
+  section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent1);
+    margin-bottom: 1rem;
+  }
+  .section-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 3rem;
+    letter-spacing: -0.02em;
+  }
+
+  /* ─── Project Cards ─── */
+  .projects { display: flex; flex-direction: column; gap: 3rem; }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    position: relative;
+  }
+  .project-card:hover { transform: translateY(-4px); border-color: var(--accent1); }
+  .project-card.reverse { direction: rtl; }
+  .project-card.reverse > * { direction: ltr; }
+
+  .project-visual {
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    min-height: 320px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Project 1 Visual — EDA */
+  .vis-eda {
+    background: linear-gradient(135deg, #0f0f1e 0%, #1a1025 100%);
+  }
+  .vis-eda::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%237c3aed' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 140px;
+    position: relative;
+    z-index: 1;
+  }
+  .bar {
+    width: 28px;
+    border-radius: 4px 4px 0 0;
+    animation: growUp 1s ease both;
+    position: relative;
+  }
+  .bar:nth-child(1) { height: 40%; background: linear-gradient(to top, #7c3aed, #a855f7); animation-delay: 0.1s; }
+  .bar:nth-child(2) { height: 75%; background: linear-gradient(to top, #7c3aed, #a855f7); animation-delay: 0.2s; }
+  .bar:nth-child(3) { height: 55%; background: linear-gradient(to top, #7c3aed, #a855f7); animation-delay: 0.3s; }
+  .bar:nth-child(4) { height: 90%; background: linear-gradient(to top, #7c3aed, #a855f7); animation-delay: 0.4s; }
+  .bar:nth-child(5) { height: 65%; background: linear-gradient(to top, #7c3aed, #a855f7); animation-delay: 0.5s; }
+  .bar:nth-child(6) { height: 45%; background: linear-gradient(to top, #7c3aed, #a855f7); animation-delay: 0.6s; }
+  .bar:nth-child(7) { height: 80%; background: linear-gradient(to top, #06b6d4, #22d3ee); animation-delay: 0.7s; }
+  @keyframes growUp { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); } }
+
+  /* Project 2 Visual — Regression */
+  .vis-reg {
+    background: linear-gradient(135deg, #0f1a0f 0%, #0e1f0e 100%);
+  }
+  .scatter-plot {
+    position: relative;
+    width: 200px;
+    height: 160px;
+    z-index: 1;
+  }
+  .dot {
+    position: absolute;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--success);
+    opacity: 0.8;
+    animation: popIn 0.5s ease both;
+  }
+  @keyframes popIn { from {transform: scale(0); opacity:0;} to {transform:scale(1); opacity:0.8;} }
+  .reg-line {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    width: 180px; height: 2px;
+    background: linear-gradient(90deg, var(--accent3), var(--success));
+    transform: rotate(-25deg);
+    transform-origin: left center;
+    border-radius: 2px;
+  }
+
+  /* Project 3 Visual — Classification */
+  .vis-clf {
+    background: linear-gradient(135deg, #1a0f0f 0%, #1f0e0e 100%);
+  }
+  .confusion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    z-index: 1;
+    position: relative;
+  }
+  .cm-cell {
+    width: 70px; height: 70px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    animation: fadeIn 0.5s ease both;
+  }
+  .cm-cell .cm-num { font-size: 1.4rem; }
+  .cm-cell .cm-label { font-size: 0.5rem; letter-spacing: 0.08em; opacity: 0.7; text-transform: uppercase; }
+  .cm-tp { background: rgba(16,185,129,0.25); border: 1px solid rgba(16,185,129,0.4); color: var(--success); animation-delay: 0.1s; }
+  .cm-fp { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #f87171; animation-delay: 0.2s; }
+  .cm-fn { background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.3); color: #f87171; animation-delay: 0.3s; }
+  .cm-tn { background: rgba(16,185,129,0.25); border: 1px solid rgba(16,185,129,0.4); color: var(--success); animation-delay: 0.4s; }
+  @keyframes fadeIn { from {opacity:0; transform:scale(0.8);} to {opacity:1; transform:scale(1);} }
+
+  /* Project content */
+  .project-content { padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .project-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  .project-desc {
+    color: var(--muted);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+  .tag {
+    font-size: 0.65rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .tag-purple { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.35); color: #a78bfa; }
+  .tag-cyan   { background: rgba(6,182,212,0.12);  border: 1px solid rgba(6,182,212,0.3);  color: #67e8f9; }
+  .tag-amber  { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #fcd34d; }
+  .tag-green  { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+  .metrics { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; }
+  .metric { text-align: center; }
+  .metric-val {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent2);
+  }
+  .metric-name { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  .btn-row { display: flex; gap: 0.75rem; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.03em;
+    border: none;
+  }
+  .btn-primary { background: var(--accent1); color: #fff; }
+  .btn-primary:hover { background: #6d28d9; transform: translateY(-1px); }
+  .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .btn-outline:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  /* ─── Skills Grid ─── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .skill-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    transition: all 0.25s ease;
+  }
+  .skill-item:hover { border-color: var(--accent1); transform: translateY(-2px); }
+  .skill-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .skill-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; margin-bottom: 0.2rem; }
+  .skill-level { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .skill-bar { margin-top: 0.5rem; height: 3px; background: var(--border); border-radius: 999px; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--accent1), var(--accent2)); }
+
+  /* ─── Footer ─── */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+  footer span { color: var(--accent2); }
+
+  /* ─── Timeline ─── */
+  .timeline { border-left: 2px solid var(--border); padding-left: 2rem; margin-top: 1rem; }
+  .tl-item { margin-bottom: 2rem; position: relative; }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -2.35rem; top: 0.25rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent1);
+    border: 2px solid var(--bg);
+  }
+  .tl-phase { font-size: 0.65rem; color: var(--accent1); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.25rem; }
+  .tl-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+  .tl-desc { font-size: 0.78rem; color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .project-visual { min-height: 220px; }
+    .metrics { flex-wrap: wrap; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="badge">📊 Data Science Portfolio — Phase 4</div>
+    <h1>Bhavini Patel<br/><span>Data Analyst & ML Enthusiast</span></h1>
+<p>
+Aspiring Data Analyst skilled in Python, Pandas, and Machine Learning. 
+I build data-driven solutions and extract meaningful insights from real-world datasets.
+</p>
+    <div class="hero-stats">
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Projects</div></div>
+  <div class="stat"><div class="stat-num">85%+</div><div class="stat-label">Best R² Score</div></div>
+  <div class="stat"><div class="stat-num">6</div><div class="stat-label">ML Algorithms</div></div>
+  <div class="stat"><div class="stat-num">3</div><div class="stat-label">Real Datasets</div></div>
+</div>
+  </div>
+</div>
+
+<!-- ─── PROJECTS ─── -->
+<section>
+  <div class="section-title">// projects</div>
+  <div class="section-heading">Three Core Projects</div>
+
+  <div class="projects">
+
+    <!-- Project 1: EDA -->
+    <div class="project-card">
+      <div class="project-visual vis-eda">
+        <div class="bar-chart">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="project-content">
+        <div>
+          <div class="project-num">// 01 — Data Analysis</div>
+          <div class="project-title">EDA on Titanic Dataset</div>
+          <div class="project-desc">
+            Complete exploratory data analysis on the Titanic dataset. Handled missing values, created new features (Title, FamilySize), and discovered survival patterns using 20+ visualizations.
+
+          </div>
+          <div class="tags">
+            <span class="tag tag-purple">Pandas</span>
+            <span class="tag tag-cyan">Seaborn</span>
+            <span class="tag tag-purple">Matplotlib</span>
+            <span class="tag tag-amber">Feature Engineering</span>
+            <span class="tag tag-green">EDA</span>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-val">891</div><div class="metric-name">Records</div></div>
+            <div class="metric"><div class="metric-val">20+</div><div class="metric-name">Visualizations</div></div>
+            <div class="metric"><div class="metric-val">6</div><div class="metric-name">Key Insights</div></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a href="EDA_Titanic.ipynb" download class="btn btn-primary">📥 Download Notebook</a>
+         <a href="https://github.com/pbhavii236-commits/ML_Projects/tree/d0c71820b2f4361d5f1e2a30d1cd3df8096b5eb3/EDA_Titanic" class="btn btn-outline">📋 View Details</a>
+       </div>
+      </div>
+    </div>
+
+    <!-- Project 2: Regression (reversed) -->
+    <div class="project-card reverse">
+      <div class="project-visual vis-reg">
+        <div class="scatter-plot">
+          <!-- Scatter dots -->
+          <div class="dot" style="left:10%;top:80%;animation-delay:0.1s"></div>
+          <div class="dot" style="left:20%;top:70%;animation-delay:0.15s"></div>
+          <div class="dot" style="left:30%;top:60%;background:#f59e0b;animation-delay:0.2s"></div>
+          <div class="dot" style="left:35%;top:65%;animation-delay:0.25s"></div>
+          <div class="dot" style="left:45%;top:50%;animation-delay:0.3s"></div>
+          <div class="dot" style="left:50%;top:45%;background:#f59e0b;animation-delay:0.35s"></div>
+          <div class="dot" style="left:58%;top:35%;animation-delay:0.4s"></div>
+          <div class="dot" style="left:65%;top:30%;animation-delay:0.45s"></div>
+          <div class="dot" style="left:70%;top:25%;background:#f59e0b;animation-delay:0.5s"></div>
+          <div class="dot" style="left:78%;top:20%;animation-delay:0.55s"></div>
+          <div class="dot" style="left:85%;top:15%;animation-delay:0.6s"></div>
+          <div class="dot" style="left:40%;top:55%;animation-delay:0.65s"></div>
+          <div class="dot" style="left:22%;top:75%;animation-delay:0.7s"></div>
+          <div class="dot" style="left:60%;top:40%;background:#f59e0b;animation-delay:0.75s"></div>
+          <div class="reg-line"></div>
+        </div>
+      </div>
+      <div class="project-content">
+        <div>
+          <div class="project-num">// 02 — Regression</div>
+          <div class="project-title">House Price Prediction</div>
+          <div class="project-desc">
+           Comparison of multiple regression models on the California Housing dataset. Applied 6 algorithms including Linear, Ridge, Lasso, and Gradient Boosting.
+          </div>
+          <div class="tags">
+            <span class="tag tag-green">Scikit-learn</span>
+            <span class="tag tag-purple">Ridge/Lasso</span>
+            <span class="tag tag-amber">Gradient Boosting</span>
+            <span class="tag tag-cyan">Feature Eng.</span>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-val">0.83</div><div class="metric-name">Best R²</div></div>
+            <div class="metric"><div class="metric-val">20K+</div><div class="metric-name">Records</div></div>
+            <div class="metric"><div class="metric-val">6</div><div class="metric-name">Models</div></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a href="House_Price_Prediction.ipynb" download class="btn btn-primary">📥 Download Notebook</a>
+          <a href="https://github.com/pbhavii236-commits/ML_Projects/tree/d0c71820b2f4361d5f1e2a30d1cd3df8096b5eb3/House_Price_Prediction" class="btn btn-outline">📋 View Details</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3: Classification -->
+    <div class="project-card">
+      <div class="project-visual vis-clf">
+        <div class="confusion-grid">
+          <div class="cm-cell cm-tp"><div class="cm-num">842</div><div class="cm-label">True Pos</div></div>
+          <div class="cm-cell cm-fp"><div class="cm-num">158</div><div class="cm-label">False Pos</div></div>
+          <div class="cm-cell cm-fn"><div class="cm-num">203</div><div class="cm-label">False Neg</div></div>
+          <div class="cm-cell cm-tn"><div class="cm-num">206</div><div class="cm-label">True Neg</div></div>
+        </div>
+      </div>
+      <div class="project-content">
+        <div>
+          <div class="project-num">// 03 — Classification</div>
+          <div class="project-title">Customer Churn Model</div>
+          <div class="project-desc">
+            Predicted customer churn for a telecom company with 7,000+ customers. Compared 4 classifiers including Logistic Regression and Random Forest.
+          </div>
+          <div class="tags">
+            <span class="tag tag-purple">Random Forest</span>
+            <span class="tag tag-cyan">ROC-AUC</span>
+            <span class="tag tag-amber">SMOTE</span>
+            <span class="tag tag-green">Business Impact</span>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-val">0.85</div><div class="metric-name">ROC-AUC</div></div>
+            <div class="metric"><div class="metric-val">80%</div><div class="metric-name">Accuracy</div></div>
+            <div class="metric"><div class="metric-val">7K+</div><div class="metric-name">Customers</div></div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <a href="Customer_Churn_Classification.ipynb" download class="btn btn-primary">📥 Download Notebook</a>
+          <a href="https://github.com/pbhavii236-commits/ML_Projects/tree/d0c71820b2f4361d5f1e2a30d1cd3df8096b5eb3/Customer_Churn_Classification" class="btn btn-outline">📋 View Details</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section style="padding-top: 1rem;">
+  <div class="section-title">// skills demonstrated</div>
+  <div class="section-heading">Technical Stack</div>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-icon">🐼</div>
+      <div class="skill-name">Pandas & NumPy</div>
+      <div class="skill-level">Data Wrangling</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Matplotlib / Seaborn</div>
+      <div class="skill-level">Visualization</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🤖</div>
+      <div class="skill-name">Scikit-learn</div>
+      <div class="skill-level">ML Framework</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="-item">
+      <div class="skill-icon">📈</div>
+      <div class="skill-name">Regression Models</div>
+      <div class="skill-level">Linear, Ridge, Lasso, GB</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-name">Classification</div>
+      <div class="skill-level">RF, GB, LR, DT</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">🔧</div>
+      <div class="skill-name">Feature Engineering</div>
+      <div class="skill-level">EDA & Preprocessing</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">📉</div>
+      <div class="skill-name">Model Evaluation</div>
+      <div class="skill-level">ROC, F1, RMSE, R²</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-icon">💡</div>
+      <div class="skill-name">Business Insights</div>
+      <div class="skill-level">Impact Analysis</div>
+      <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="section-title">// datasets</div>
+  <div class="section-heading">Datasets Used</div>
+
+  <ul style="color: var(--muted); line-height:2;">
+    <li>titanic.csv</li>
+    <li>California_Housing.csv</li>
+    <li>Telco-Customer-Churn.csv</li>
+  </ul>
+</section>
+<!-- ─── ROADMAP ─── -->
+<section style="padding-top: 1rem;">
+  <div class="section-title">// learning journey</div>
+  <div class="section-heading">ML Roadmap Progress</div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-phase">Phase 1 ✅</div>
+      <div class="tl-title">Python Fundamentals</div>
+      <div class="tl-desc">Variables, loops, functions, OOP, NumPy, Pandas basics</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 2 ✅</div>
+      <div class="tl-title">Data Wrangling & Visualization</div>
+      <div class="tl-desc">Data cleaning, Matplotlib, Seaborn, storytelling with data</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-phase">Phase 3 ✅</div>
+      <div class="tl-title">Machine Learning Fundamentals</div>
+      <div class="tl-desc">Scikit-learn, regression, classification, evaluation metrics</div>
+    </div>
+    <div class="tl-item" style="border-left: none;">
+      <div class="tl-phase" style="color: var(--accent2);">Phase 4 🚀 (Current)</div>
+      <div class="tl-title" style="color: var(--accent2);">Portfolio Projects</div>
+      <div class="tl-desc">3 end-to-end ML projects — EDA, Regression, Classification</div>
+    </div>
+  </div>
+  <section>
+  <div class="section-title">// contact</div>
+  <div class="section-heading">Get In Touch</div>
+
+  <p style="color: var(--muted); max-width:600px;">
+  </p>
+
+  <p style="margin-top:1rem;">
+    📧 Email: pbhavii236@gmail.com <br/>
+    💻 GitHub: https://github.com/pbhavii236 <br/>
+  </p>
+</section>
+</section>
+
+<footer>
+  Built with 🧠 Python · Scikit-learn · Pandas · Matplotlib<br/>
+  <span>Phase 4 — Portfolio Ready</span> | Data Science Journey
+</footer>
+
+</body>
+</html>
