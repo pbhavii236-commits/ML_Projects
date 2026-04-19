@@ -13,7 +13,7 @@ The Titanic dataset is one of the most iconic datasets in data science. This pro
 ## 📁 Dataset
 
 - **Name:** Titanic Dataset
-- **Source:** [EDA_Titanic.csv)
+- **Source:** [titanic.csv)
 - **Records:** 891 passengers
 - **Features:** 12 columns including Pclass, Sex, Age, Fare, Embarked, SibSp, Parch, etc.
 - **Target:** `Survived` (0 = No, 1 = Yes)
