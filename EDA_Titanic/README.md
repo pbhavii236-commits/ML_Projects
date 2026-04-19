@@ -92,7 +92,7 @@ The Titanic dataset is one of the most iconic datasets in data science. This pro
 ## 📊 Output
 
 See full analysis with visualizations in the notebook:
-👉 titanic_analysis.ipynb
+👉 EDA_Titanic.ipynb
 ---
 
 ## 👩‍💻 Author
