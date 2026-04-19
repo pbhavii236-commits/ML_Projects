@@ -86,7 +86,10 @@ Customer churn is one of the biggest challenges for telecom companies. This proj
    ```bash
    jupyter notebook Customer_Churn_Classification.ipynb
    ```
+## 📊 Output
 
+See full analysis with visualizations in the notebook:
+👉 Customer_Churn_Classification.ipynb
 ---
 
 ## 👩‍💻 Author
